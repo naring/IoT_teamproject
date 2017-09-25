@@ -1,2 +1,2 @@
 # IoT_teamproject
-This repository is for your team project
+This repository is for our team project
