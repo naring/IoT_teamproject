@@ -1,0 +1,8 @@
+# 1. Import `gTTS`
+from gtts import gTTS
+
+# 2. Create an instance
+tts = gTTS(text='Hello', lang='en', slow=True)
+
+# 3. Write to a file
+tts.save("hello.wav")
