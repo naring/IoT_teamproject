@@ -3,14 +3,14 @@ import serial
 import time
 import sys
 from time import localtime,strftime
-import blusetooth
+import bluetooth
 
 sock = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
 sock.connect((""),1)
 data = ""
 while 1:
 try:
-data +=sock.recv(1024)
+data += sock.recv(1024)
 data_end = data.find('\n')
 
 if data_end != -1:
@@ -25,10 +25,10 @@ Gas = data[11:data_end]
 
 time = strftime("%Y/%m/%d %I:%M:%S",localtime())
 ftime = time
-a=TempS()
-B=HumS()
-c=GasS()
-ftemp=float(TempS.Temp)
+a = TempS()
+B = HumS()
+c = GasS()
+ftemp = float(TempS.Temp)
 
 print ftemp
 fhum=float(HumS.Hum)
@@ -38,16 +38,17 @@ fgas=int(GasS.Gas)
 print fgas
 
 if fgas>600:
-fas=2
-ilif(fgas>200)&(fgas<600):
-fgas=-1
+fgas=2
+elif(fgas>200)&(fgas<600):
+fgas=1
 else:
 fgas=0
+
 data=data[data_end+1:]
 
 db=MySQLdb.connect(host='127.0.0.1',user='root',passwd='raspberry',db='HomePi)
 with db:
-cur=db.cursor()
+cur = db.cursor()
 cur.execute("select*from temp")
 cur.execute("UPDATE temp SET t_time=%s WHERE t_time is not null",ftime)
 cur.execute("UPDATE temp SET t_temp=%.2f WHERE t_temp is not null"%ftemp)
