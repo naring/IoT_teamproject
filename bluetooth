@@ -1,0 +1,13 @@
+import MySQLdb
+import serial
+import time
+import sys
+from time import localtime,strftime
+import blusetooth
+sock = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
+sock.connect((""),1)
+data =""
+while 1:
+try:
+data +=sock.recv(1024)
+data_end = data.find
