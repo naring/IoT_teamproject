@@ -6,7 +6,7 @@ from time import localtime,strftime
 import bluetooth
 
 sock = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
-sock.connect((""),1)
+sock.connect(("98:D3:32:30:F3:65"),1)
 data = ""
 while 1:
 try:
@@ -20,29 +20,16 @@ Temp = data[0.4]
 class HumS:
 Hum = data[5.9]
 
-class GasS:
-Gas = data[11:data_end]
 
 time = strftime("%Y/%m/%d %I:%M:%S",localtime())
 ftime = time
 a = TempS()
 B = HumS()
-c = GasS()
-ftemp = float(TempS.Temp)
 
+ftemp = float(TempS.Temp)
 print ftemp
 fhum=float(HumS.Hum)
-
 print fhum
-fgas=int(GasS.Gas)
-print fgas
-
-if fgas>600:
-fgas=2
-elif(fgas>200)&(fgas<600):
-fgas=1
-else:
-fgas=0
 
 data=data[data_end+1:]
 
@@ -53,7 +40,6 @@ cur.execute("select*from temp")
 cur.execute("UPDATE temp SET t_time=%s WHERE t_time is not null",ftime)
 cur.execute("UPDATE temp SET t_temp=%.2f WHERE t_temp is not null"%ftemp)
 cur.execute("UPDATE temp SET t_hum=%.2f WHERE t_hum is not null"%fhum)
-cur.execute("UPDATE temp SET t_gas=%d WHERE t_gas is not null"%fgas)
 db.commit()
 print "up"
 
