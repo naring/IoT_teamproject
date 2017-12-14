@@ -1,0 +1,6 @@
+import serial
+import time
+bluetoothSerial = serial.Serial("/dev/rfcomm0",baudrate=9600)
+bluetoothSerial.write('t')
+time.sleep(0.2)
+data=bluetoothSerial.readline()
